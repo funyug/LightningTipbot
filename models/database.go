@@ -12,7 +12,7 @@ var DB *gorm.DB
 
 func InitDB() error {
 	var err error
-	DB, err = gorm.Open("mysql", "root:@/lightning")
+	DB, err = gorm.Open("mysql", "root:@/lightning?parseTime=true")
 	if err != nil {
 		return err
 	}

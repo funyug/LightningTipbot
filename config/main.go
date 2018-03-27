@@ -7,6 +7,7 @@ import (
 )
 
 var Token string;
+var WithdrawalFees = int64(10);
 
 func CheckFlags() {
 	var tokenPtr = flag.String("token","","Your telegram bot token")

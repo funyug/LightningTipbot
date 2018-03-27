@@ -5,12 +5,15 @@ import (
 	"github.com/lightningnetwork/lnd/lnrpc"
 	"time"
 	"LightningTipBot/lnd"
+	"LightningTipBot/config"
+	"log"
 )
 
 func HasPendingWithdrawal(user *models.User) (bool) {
 	payments := []models.Payment{}
-	err := models.DB.Find(payments).Where("user_id = ?",user.Id).Where("pending = ?",1).Where("success = ?",0)
+	err := models.DB.Where("user_id = ?",user.Id).Where("pending = ?",1).Where("success = ?",0).Find(&payments)
 	if err.Error != nil {
+		log.Print(err.Error)
 		return true
 	}
 	if len(payments) == 0 {
@@ -21,7 +24,7 @@ func HasPendingWithdrawal(user *models.User) (bool) {
 
 func CreatePayment(user *models.User, payreq *lnrpc.PayReq, payreqhash string) (*models.Payment, error){
 
-	user.Balance = user.Balance - payreq.NumSatoshis
+	user.Balance = user.Balance - payreq.NumSatoshis - config.WithdrawalFees
 	err := user.Update()
 	if err != nil {
 		return nil,err
@@ -52,7 +55,7 @@ func ProcessPayment(payment *models.Payment, user *models.User) (*models.Payment
 		payment.PaymentDate = time.Now()
 		payment.Update()
 
-		user.Balance = user.Balance + payment.Amount
+		user.Balance = user.Balance + payment.Amount + config.WithdrawalFees
 		user.Update()
 		return nil,err
 	}

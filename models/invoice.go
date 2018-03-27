@@ -23,3 +23,11 @@ func (i *Invoice) Create() error {
 	}
 	return err.Error
 }
+
+func (i *Invoice) Update() error {
+	err := DB.Save(i)
+	if err.Error != nil {
+		log.Printf("Error occured while updating invoice: %v",err)
+	}
+	return err.Error
+}

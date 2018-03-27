@@ -101,3 +101,13 @@ func SendPaymentSync(payreq string) (*lnrpc.SendResponse,error) {
 	log.Println(response)
 	return response, err
 }
+
+func SubscribeInvoices() (lnrpc.Lightning_SubscribeInvoicesClient,error) {
+	req := &lnrpc.InvoiceSubscription{}
+	stream,err := Client.SubscribeInvoices(context.Background(),req)
+	if err != nil {
+		log.Println(err)
+		return nil,err
+	}
+	return stream,err
+}

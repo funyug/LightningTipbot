@@ -10,10 +10,10 @@ import (
 	"log"
 	"LightningTipBot/telegram"
 	"LightningTipBot/models"
+	"LightningTipBot/controllers"
 )
 
 func main() {
-
 	err := models.InitDB()
 	if err != nil {
 		log.Fatalf("Got error when connect database, the error is '%v'", err)
@@ -39,6 +39,7 @@ func main() {
 	}
 
 	telegram.InitCommands(bot)
+	go controllers.InvoiceSettler()
 
 	log.Println("Server started..")
 	bot.Start()
