@@ -192,7 +192,7 @@ func BalanceHandler(b *telebot.Bot, m *telebot.Message,message *models.Message) 
 		return
 	}
 
-	response := strconv.FormatInt(user.Balance,10)
+	response := strconv.FormatInt(user.Balance,10)+" SAT"
 	b.Send(m.Sender, response)
 	controllers.UpdateResponse(message, response)
 }
