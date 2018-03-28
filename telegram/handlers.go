@@ -15,8 +15,8 @@ func HelpHandler(b *telebot.Bot, m *telebot.Message, message *models.Message) {
 	help_text = "Welcome to the lightning tipbot. Start by sending /register to register an account and start using the bot."
 	help_text += "\n\nCommands:"
 	help_text += "\n\n\\register: Register an account. Make sure you have a telegram username. Your funds are associated with your telegram username so withdraw all your funds if you decide to change your telegram username"
-	help_text += "\n\n\\deposit <amount>: Get an invoice address to deposit coins via lightning network"
-	help_text += "\n\n\\withdraw <pay_req>: Withdraw your coins over lightning network"
+	help_text += "\n\n\\deposit <amount>: Get an invoice address to deposit coins via lightning network. DO NOT USE THE SAME PAYMENT REQUEST TWICE"
+	help_text += "\n\n\\withdraw <pay_req>: Withdraw your coins over lightning network(10 SAT Fees). DO NOT USE THE SAME PAYMENT REQUEST TWICE"
 	help_text += "\n\n\\balance: To check your balance"
 	help_text += "\n\n\\tip <amount>: Reply to any message with tip <amount> and the sender of the message will be tipped with the specified amount"
 

@@ -14,13 +14,13 @@ import (
 )
 
 func main() {
+	config.CheckFlags()
+
 	err := models.InitDB()
 	if err != nil {
 		log.Fatalf("Got error when connect database, the error is '%v'", err)
 	}
 	defer models.DB.Close()
-
-	config.CheckFlags()
 
 	var conn *grpc.ClientConn
 
